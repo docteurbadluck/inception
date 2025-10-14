@@ -1,0 +1,54 @@
+version: "3.8"
+
+networks:
+  front:
+  back:
+
+services:
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    networks:
+      - front
+    ports:
+      - "443:443"
+    volumes:
+      - /home/${USER}/data/wordpress:/var/www/html
+    depends_on:
+      - wordpress
+    restart: always
+
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+      WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+    volumes:
+      -  /home/${USER}/data/wordpress:/var/www/html
+    networks:
+      - front
+      - back
+    depends_on:
+      - db
+    env_file:
+      - .env
+    restart: always
+
+  db:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    environment:
+        MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+        MYSQL_USER: ${WORDPRESS_DB_USER}
+        MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - /home/${USER}/data/mariadb:/var/lib/mysql
+    networks:
+      - back
+    env_file:
+      - .env
+    restart: always
