@@ -12,7 +12,6 @@ COPY conf/script_start.sh .
 RUN mkdir -p /run/mysqld && \
     chown mysql:mysql /run/mysqld
 
-
 RUN chmod +x /script_start.sh
 
 ENTRYPOINT ["/script_start.sh"]
