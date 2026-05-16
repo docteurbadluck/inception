@@ -11,7 +11,7 @@
 ## Architecture
 
 <div align="center">
-  <img width="500" height="255" alt="architecture" src="https://github.com/user-attachments/assets/c22fb3fd-1b6e-4a94-b099-91bbf57de8d0" />
+  <img width="500" height="170" alt="architecture" src="https://github.com/user-attachments/assets/c22fb3fd-1b6e-4a94-b099-91bbf57de8d0" />
 </div>
 
 ## Demo
